@@ -1,7 +1,6 @@
 import requests
 import json
 
-url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
 
 def get_request(url):
     r = requests.get(url)
