@@ -29,9 +29,9 @@ async def send_welcome(message: types.Message):
     This handler will be called when user sends `/start` or `/help` command
     """
     await message.answer(
-    'Hi!\nI\'m CocktailBot!\nI help you cock a cocktail.\n'
-    '/help - показать команды бота\n'
-    '/random - Рецепт случайного коктейля'
+        'Hi!\nI\'m CocktailBot!\nI help you cock a cocktail.\n'
+        '/help - Show bot commands\n'
+        '/random - Casual cocktail recipe'
     )
 
 
@@ -43,19 +43,18 @@ async def random_cocktail(message: types.Message):
 
     with open('json_obj.json') as file:
         templates = json.load(file)
-    
+
     await message.answer(templates['drinks'][0]['strDrink'] + ' 🍺')
     await message.answer(templates['drinks'][0]['strInstructions'])
     await message.answer('we\'re gonna need:')
 
-    ingred = ingredients()
-    prop = proportions()
+    ingredients_ = ingredients()
+    proportions_ = proportions()
 
-    for ingredient in ingred:
-        for proportion in prop:
+    for ingredient in ingredients_:
+        for proportion in proportions_:
             await message.answer(templates['drinks'][0][proportion] + templates['drinks'][0][ingredient])
 
-    
     await bot.send_photo(message.chat.id, types.InputFile.from_url(templates["drinks"][0]["strDrinkThumb"]))
     # await message.answer(
     #     ['drinks'][0]['strMeasure1']
@@ -64,7 +63,6 @@ async def random_cocktail(message: types.Message):
     #     # ['drinks'][0]['strMeasure4'],
     #     # ['drinks'][0]['strMeasure5'],   
     # )
-    
 
 
 @dp.message_handler()  # title search cocktail

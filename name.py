@@ -7,9 +7,8 @@ def ingredients():
     with open('json_obj.json') as file:
         dict_json = json.load(file)  # dict
 
-
-    for key in dict_json['drinks'][0]:  # для всех значений в файле json
-        if dict_json['drinks'][0][key] != None:
+    for key in dict_json['drinks'][0]:  # for all values in json
+        if dict_json['drinks'][0][key] is not None:
             if key.startswith('strIngredient'):
                 keys.append(key)
 
@@ -22,9 +21,8 @@ def proportions():
     with open('json_obj.json') as file:
         dict_json = json.load(file)  # dict
 
-
-    for key in dict_json['drinks'][0]:  # для всех значений в файле json
-        if dict_json['drinks'][0][key] != None:
+    for key in dict_json['drinks'][0]:  # for all values in json
+        if dict_json['drinks'][0][key] is not None:
             if key.startswith('strMeasure'):
                 keys.append(key)
 
