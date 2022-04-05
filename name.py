@@ -17,12 +17,14 @@ def ingredients():
             
     sum_measure_and_ingredient = list()
 
+# summing 2 values json
     for i in range(len(strIngredient)):
-        sum_measure_and_ingredient.append(dict_json['drinks'][0][strMeasure[i]] + dict_json['drinks'][0][strIngredient[i]])
+        sum_measure_and_ingredient.append(
+            dict_json['drinks'][0][strMeasure[i]] + dict_json['drinks'][0][strIngredient[i]]
+        )
 
     return sum_measure_and_ingredient
         
-
 
 # def proportions():
 #     keys = list()
