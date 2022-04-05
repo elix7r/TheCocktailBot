@@ -2,7 +2,7 @@ import os
 import json
 import logging
 from request_api import get_request
-from name import ingredients, proportions
+from name import ingredients
 from aiogram import Bot, Dispatcher, executor, types
 
 API_TOKEN = os.getenv('API_BOT')
@@ -49,11 +49,9 @@ async def random_cocktail(message: types.Message):
     await message.answer('we\'re gonna need:')
 
     ingredients_ = ingredients()
-    proportions_ = proportions()
 
     for ingredient in ingredients_:
-        for proportion in proportions_:
-            await message.answer(templates['drinks'][0][proportion] + templates['drinks'][0][ingredient])
+        await message.answer(ingredient)
 
     await bot.send_photo(message.chat.id, types.InputFile.from_url(templates["drinks"][0]["strDrinkThumb"]))
     # await message.answer(
