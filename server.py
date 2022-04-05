@@ -54,13 +54,6 @@ async def random_cocktail(message: types.Message):
     await message.answer(templates['drinks'][0]['strInstructions'])
 
     await bot.send_photo(message.chat.id, types.InputFile.from_url(templates["drinks"][0]["strDrinkThumb"]))
-    # await message.answer(
-    #     ['drinks'][0]['strMeasure1']
-    #     # ['drinks'][0]['strMeasure2'],
-    #     # ['drinks'][0]['strMeasure3'],
-    #     # ['drinks'][0]['strMeasure4'],
-    #     # ['drinks'][0]['strMeasure5'],   
-    # )
 
 
 @dp.message_handler()  # title search cocktail
