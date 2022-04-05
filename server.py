@@ -45,13 +45,13 @@ async def random_cocktail(message: types.Message):
         templates = json.load(file)
 
     await message.answer(templates['drinks'][0]['strDrink'] + ' 🍺')
-    await message.answer(templates['drinks'][0]['strInstructions'])
     await message.answer('we\'re gonna need:')
-
     ingredients_ = ingredients()
 
     for ingredient in ingredients_:
         await message.answer(ingredient)
+
+    await message.answer(templates['drinks'][0]['strInstructions'])
 
     await bot.send_photo(message.chat.id, types.InputFile.from_url(templates["drinks"][0]["strDrinkThumb"]))
     # await message.answer(
