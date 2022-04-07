@@ -37,9 +37,9 @@ async def send_welcome(message: types.Message):
 
 @dp.message_handler(commands=['random'])
 async def random_cocktail(message: types.Message):
-    url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
+    URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
 
-    get_request(url)
+    get_request(URL)
 
     with open('json_obj.json') as file:
         templates = json.load(file)
@@ -68,6 +68,13 @@ async def search_cocktail(message: types.Message):
             templates = json.load(file)
 
         await message.answer(templates['drinks'][0]['strDrink'] + ' 🍺')
+
+        await message.answer('we\'re gonna need:')
+        ingredients_ = ingredients()
+
+        for ingredient in ingredients_:
+            await message.answer(ingredient)
+
         await message.answer(templates['drinks'][0]['strInstructions'])
         await bot.send_photo(message.chat.id, types.InputFile.from_url(templates["drinks"][0]["strDrinkThumb"]))
     except TypeError:
