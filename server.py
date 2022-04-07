@@ -15,14 +15,6 @@ bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
 
-async def setup_bot_commands():
-    bot_commands = [
-        types.BotCommand(command="/help", description="Get info about me"),
-        types.BotCommand(command="/random", description="set bot for a QnA task"),
-    ]
-    await bot.set_my_commands(bot_commands)
-
-
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
     """
@@ -30,6 +22,7 @@ async def send_welcome(message: types.Message):
     """
     await message.answer(
         'Hi!\nI\'m CocktailBot!\nI help you cock a cocktail.\n'
+        'Send me the name of the cocktail and I\'ll find it 🍸\n'
         '/help - Show bot commands\n'
         '/random - Casual cocktail recipe'
     )
