@@ -1,7 +1,7 @@
 import os
 import json
 import logging
-from request_api import get_request
+from request_api import get_json_file
 from ingredients import ingredients
 from aiogram import Bot, Dispatcher, executor, types
 
@@ -32,7 +32,7 @@ async def send_welcome(message: types.Message):
 async def random_cocktail(message: types.Message):
     URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
 
-    get_request(URL)
+    get_json_file(URL)
 
     with open('json_obj.json') as file:
         templates = json.load(file)
@@ -55,7 +55,7 @@ async def search_cocktail(message: types.Message):
         cocktail_name = message.text
         URL = f'https://www.thecocktaildb.com/api/json/v1/1/search.php?s={cocktail_name}'
 
-        get_request(URL)
+        get_json_file(URL)  # get json file
 
         with open('json_obj.json') as file:
             templates = json.load(file)

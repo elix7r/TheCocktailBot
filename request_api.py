@@ -2,7 +2,7 @@ import requests
 import json
 
 
-def get_request(url):
+def get_json_file(url):
     r = requests.get(url)
 
     result = r.json()
