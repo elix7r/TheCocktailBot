@@ -2,7 +2,7 @@ import os
 import json
 import logging
 from request_api import get_request
-from name import ingredients
+from ingredients import ingredients
 from aiogram import Bot, Dispatcher, executor, types
 
 API_TOKEN = os.getenv('API_BOT')
