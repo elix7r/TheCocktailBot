@@ -25,5 +25,8 @@ def ingredients():
             )
         except IndexError:
             pass
+            sum_measure_and_ingredient.append(
+                dict_json['drinks'][0]['strIngredient3']
+            )
 
     return sum_measure_and_ingredient
