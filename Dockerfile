@@ -1,10 +1,13 @@
 FROM python:3.8
 
-WORKDIR /home
+WORKDIR /app
 
+# you're API Token
 ENV API_BOT=""
 
-COPY *.py requirements.txt ./
+COPY *.py requirements.txt /app/
+
+# install libraries
 RUN pip install -r requirements.txt
 
-ENTRYPOINT [ "python", "server.py" ]
+CMD [ "python", "server.py" ]
