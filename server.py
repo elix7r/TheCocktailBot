@@ -1,8 +1,8 @@
 import os
 import json
 import logging
-from request_api import get_request
-from name import ingredients
+from request_api import get_json_file
+from ingredients import ingredients
 from aiogram import Bot, Dispatcher, executor, types
 
 API_TOKEN = os.getenv('API_BOT')
@@ -15,14 +15,6 @@ bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
 
-async def setup_bot_commands():
-    bot_commands = [
-        types.BotCommand(command="/help", description="Get info about me"),
-        types.BotCommand(command="/random", description="set bot for a QnA task"),
-    ]
-    await bot.set_my_commands(bot_commands)
-
-
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
     """
@@ -30,6 +22,7 @@ async def send_welcome(message: types.Message):
     """
     await message.answer(
         'Hi!\nI\'m CocktailBot!\nI help you cock a cocktail.\n'
+        'Send me the name of the cocktail and I\'ll find it 🍸\n'
         '/help - Show bot commands\n'
         '/random - Casual cocktail recipe'
     )
@@ -39,7 +32,7 @@ async def send_welcome(message: types.Message):
 async def random_cocktail(message: types.Message):
     URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
 
-    get_request(URL)
+    get_json_file(URL)
 
     with open('json_obj.json') as file:
         templates = json.load(file)
@@ -62,7 +55,7 @@ async def search_cocktail(message: types.Message):
         cocktail_name = message.text
         URL = f'https://www.thecocktaildb.com/api/json/v1/1/search.php?s={cocktail_name}'
 
-        get_request(URL)
+        get_json_file(URL)  # get json file
 
         with open('json_obj.json') as file:
             templates = json.load(file)

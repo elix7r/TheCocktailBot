@@ -19,8 +19,14 @@ def ingredients():
 
 # summing 2 values json
     for i in range(len(strIngredient)):
-        sum_measure_and_ingredient.append(
-            dict_json['drinks'][0][strMeasure[i]] + dict_json['drinks'][0][strIngredient[i]]
-        )
+        try:
+            sum_measure_and_ingredient.append(
+                dict_json['drinks'][0][strMeasure[i]] + dict_json['drinks'][0][strIngredient[i]]
+            )
+        except IndexError:
+            pass
+            sum_measure_and_ingredient.append(
+                dict_json['drinks'][0]['strIngredient3']
+            )
 
     return sum_measure_and_ingredient
