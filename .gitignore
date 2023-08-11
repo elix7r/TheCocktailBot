@@ -1,3 +1,4 @@
-__pycache__
-env
+__pycache__/
+venv/
+.vscode/
 json_obj.json
