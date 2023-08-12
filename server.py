@@ -2,20 +2,18 @@ import os
 import json
 import logging
 from util import get_json_file
-from ingredients import ingredients
+from ingredients import get_cocktail_ingredients
 from aiogram import Bot, Dispatcher, executor, types
 
-API_TOKEN = os.getenv("API_BOT")
+API_TOKEN = os.getenv("API_TELEGRAM_BOT")
+RANDOM_COCKTAIL_URI = "https://www.thecocktaildb.com/api/json/v1/1/random.php"
 
-# Configure logging
 logging.basicConfig(level=logging.INFO)
-
-# Initialize bot and dispatcher
-bot = Bot(token=API_TOKEN)
-dp = Dispatcher(bot)
+telegram_bot = Bot(token=API_TOKEN)
+dispatcher = Dispatcher(telegram_bot)
 
 
-@dp.message_handler(commands=["start", "help"])
+@dispatcher.message_handler(commands=["start", "help"])
 async def send_welcome(message: types.Message):
     """
     This handler will be called when user sends `/start` or `/help` command
@@ -28,31 +26,30 @@ async def send_welcome(message: types.Message):
     )
 
 
-@dp.message_handler(commands=["random"])
+@dispatcher.message_handler(commands=["random"])
 async def random_cocktail(message: types.Message):
-    URL = "https://www.thecocktaildb.com/api/json/v1/1/random.php"
-
-    get_json_file(URL)
+    get_json_file(RANDOM_COCKTAIL_URI)
 
     with open("json_obj.json") as file:
         templates = json.load(file)
 
     await message.answer(templates["drinks"][0]["strDrink"] + " 🍺")
     await message.answer("we're gonna need:")
-    ingredients_ = ingredients()
 
-    for ingredient in ingredients_:
+    ingredients: list = get_cocktail_ingredients()
+
+    for ingredient in ingredients:
         await message.answer(ingredient)
 
     await message.answer(templates["drinks"][0]["strInstructions"])
 
-    await bot.send_photo(
+    await telegram_bot.send_photo(
         message.chat.id,
         types.InputFile.from_url(templates["drinks"][0]["strDrinkThumb"]),
     )
 
 
-@dp.message_handler()  # title search cocktail
+@dispatcher.message_handler()  # title search cocktail
 async def search_cocktail(message: types.Message):
     try:
         cocktail_name = message.text
@@ -68,19 +65,19 @@ async def search_cocktail(message: types.Message):
         await message.answer(templates["drinks"][0]["strDrink"] + " 🍺")
 
         await message.answer("we're gonna need:")
-        ingredients_ = ingredients()
+        ingredients_ = get_cocktail_ingredients()
 
         for ingredient in ingredients_:
             await message.answer(ingredient)
 
         await message.answer(templates["drinks"][0]["strInstructions"])
-        await bot.send_photo(
+        await telegram_bot.send_photo(
             message.chat.id,
             types.InputFile.from_url(templates["drinks"][0]["strDrinkThumb"]),
         )
     except TypeError:
-        await message.answer("Sorry, I does not find your request... 😭")
+        await message.answer("Sorry, I doesn't find your request... 😭")
 
 
 if __name__ == "__main__":
-    executor.start_polling(dp, skip_updates=True)
+    executor.start_polling(dispatcher, skip_updates=True)

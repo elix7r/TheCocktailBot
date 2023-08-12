@@ -1,13 +1,13 @@
-FROM python:3.8
+FROM python:3.10
 
-WORKDIR /app
+WORKDIR /root
 
 # you're API Token
-ENV API_BOT=""
+ENV API_TELEGRAM_BOT=""
 
-COPY *.py requirements.txt /app/
+COPY *.py requirements.txt /root/
 
-# install libraries
+# install dependencies
 RUN pip install -r requirements.txt
 
-CMD [ "python", "server.py" ]
+CMD [ "python3", "server.py" ]

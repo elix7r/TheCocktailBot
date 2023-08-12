@@ -1,7 +1,7 @@
 import json
 
 
-def ingredients():
+def get_cocktail_ingredients():
     strIngredient = list()
     strMeasure = list()
 
