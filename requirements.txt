@@ -11,5 +11,5 @@ idna==3.7
 multidict==6.0.2
 pytz==2022.1
 requests==2.32.4
-urllib3==1.26.19
+urllib3==2.5.0
 yarl==1.7.2
